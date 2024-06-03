@@ -25,7 +25,7 @@ Napi::Value Window::GetForeground(const Napi::CallbackInfo &info) {
 }
 Napi::Value Window::SendInputKey(const Napi::CallbackInfo &info) {
   std::string keyStr = "";
-  for (int i = 0; i < info.length; i++) {
+  for (int i = 0; i < info.Length(); i++) {
     keyStr += info[i] + " ";
   }
   keyStr = keyStr.substr(0, keyStr.size()-1);
