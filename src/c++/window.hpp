@@ -9,6 +9,7 @@ public:
   Window(const Napi::CallbackInfo &info);
 
   static Napi::Value GetForeground(const Napi::CallbackInfo &info);
+  static Napi::Value SendInputKey(const Napi::CallbackInfo &info);
   static Napi::Value GetByClassName(const Napi::CallbackInfo &info);
   static Napi::Value GetByTitle(const Napi::CallbackInfo &info);
   static Napi::Value GetByPid(const Napi::CallbackInfo &info);

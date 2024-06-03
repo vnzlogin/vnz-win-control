@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <napi.h>
+#include "SendKeys.h"
 
 #include "window.hpp"
 
@@ -21,6 +22,16 @@ Napi::Value Window::GetForeground(const Napi::CallbackInfo &info) {
   HWND fgWin = GetForegroundWindow();
 
   return constructor.New({ Napi::Number::New(info.Env(), HandleToLong(fgWin)) });
+}
+Napi::Value Window::SendInputKey(const Napi::CallbackInfo &info) {
+  std::string keyStr = "";
+  for (int i = 0; i < info; i++) {
+    keyStr += info[i] + " ";
+  }
+  keyStr = keyStr.substr(0, keyStr.size()-1);
+  CSendKeys sk;
+  sk.SendKeys(keyStr);
+  return Napi::Boolean::New(info.Env(), true);
 }
 
 Napi::Value Window::GetByClassName(const Napi::CallbackInfo& info) {
@@ -88,6 +99,7 @@ Napi::Object Window::Init(Napi::Env env, Napi::Object exports) {
     env, "Window",
     {
       StaticMethod<&Window::GetForeground>("getForeground"),
+      StaticMethod<&Window::SendInputKey>("sendInputKey"),
       StaticMethod<&Window::GetByTitle>("getByTitle"),
       StaticMethod<&Window::GetByClassName>("getByClassName"),
       StaticMethod<&Window::GetByPid>("getByPid"),

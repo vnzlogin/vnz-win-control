@@ -6,7 +6,8 @@
         "cflags_cc!": [ "-fno-exceptions" ],
         "sources": [
           "src/c++/window.cpp",
-        "src/c++/main.cpp"
+          "src/c++/main.cpp",
+          "src/c++/SendKeys.cpp"
         ],
         'msvs_settings': {
           'VCCLCompilerTool': {
