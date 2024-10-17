@@ -1,6 +1,6 @@
 {
   "name": "vnz-win-control",
-  "version": "0.5.0",
+  "version": "0.5.4",
   "description": "Windows manipulation made easy for node.js",
   "author": "VnzLogin <support@vnzlogin.com>",
   "license": "MIT",

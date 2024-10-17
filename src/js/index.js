@@ -5,7 +5,8 @@ const path = require('path')
 let Window;
 try {
   const bindingPath = binary.find(path.resolve(path.join(__dirname, '../../package.json')));
-  Window = require(bindingPath); // eslint-disable-line
+  var win = require(bindingPath); // eslint-disable-line
+  Window = win.Window
 } catch (error) {
   Window = null;
 }
