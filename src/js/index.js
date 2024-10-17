@@ -2,8 +2,13 @@
 const binary = require('node-pre-gyp')
 const path = require('path')
 
-const bindingPath = binary.find(path.resolve(path.join(__dirname, '../../package.json')))
-const {Window} = require(bindingPath) // eslint-disable-line
+let Window;
+try {
+  const bindingPath = binary.find(path.resolve(path.join(__dirname, '../../package.json')));
+  Window = require(bindingPath); // eslint-disable-line
+} catch (error) {
+  Window = null;
+}
 
 module.exports = {
   Window,

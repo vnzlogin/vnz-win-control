@@ -4,10 +4,20 @@
       "target_name": "wincontrol",
         "cflags!": [ "-fno-exceptions" ],
         "cflags_cc!": [ "-fno-exceptions" ],
-        "sources": [
-          "src/c++/window.cpp",
-          "src/c++/main.cpp",
-          "src/c++/SendKeys.cpp"
+        # "sources": [
+        #   "src/c++/window.cpp",
+        #   "src/c++/main.cpp",
+        #   "src/c++/SendKeys.cpp"
+        # ],
+        "conditions": [
+          # Điều kiện cho các nền tảng không phải macOS
+          [ 'OS == "win"', {
+            "sources": [
+              "src/c++/window.cpp",
+              "src/c++/main.cpp",
+              "src/c++/SendKeys.cpp"
+            ]
+          }]
         ],
         'msvs_settings': {
           'VCCLCompilerTool': {
