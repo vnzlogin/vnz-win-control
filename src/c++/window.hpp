@@ -10,6 +10,8 @@ public:
 
   static Napi::Value GetForeground(const Napi::CallbackInfo &info);
   static Napi::Value SendInputKey(const Napi::CallbackInfo &info);
+  static Napi::Value Copy(const Napi::CallbackInfo &info);
+  // static Napi::Value EmptyClipboard(const Napi::CallbackInfo &info);
   static Napi::Value GetByClassName(const Napi::CallbackInfo &info);
   static Napi::Value GetByTitle(const Napi::CallbackInfo &info);
   static Napi::Value GetByPid(const Napi::CallbackInfo &info);

@@ -26,13 +26,32 @@ Napi::Value Window::GetForeground(const Napi::CallbackInfo &info) {
 Napi::Value Window::SendInputKey(const Napi::CallbackInfo &info) {
   std::string keyStr = "";
   for (int i = 0; i < info.Length(); i++) {
-    keyStr += info[i] + " ";
+    keyStr = keyStr + info[i].ToString().Utf8Value() + " ";
   }
   keyStr = keyStr.substr(0, keyStr.size()-1);
   CSendKeys sk;
-  sk.SendKeys(keyStr, true);
+  sk.SendKeys((LPCTSTR)keyStr.c_str(), true);
   return Napi::Boolean::New(info.Env(), true);
 }
+Napi::Value Window::Copy(const Napi::CallbackInfo &info) {
+  std::string inf = info[0].ToString();
+  const char* output = inf.c_str();
+  const size_t len = strlen(output) + 1;
+  HGLOBAL hMem =  GlobalAlloc(GMEM_MOVEABLE, len);
+  memcpy(GlobalLock(hMem), output, len);
+  GlobalUnlock(hMem);
+  OpenClipboard(0);
+  // EmptyClipboard();
+  SetClipboardData(CF_TEXT, hMem);
+  CloseClipboard();
+  return Napi::Boolean::New(info.Env(), true);
+}
+// Napi::Value Window::EmptyClipboard(const Napi::CallbackInfo &info) {
+//   OpenClipboard(0);
+//   EmptyClipboard();
+//   CloseClipboard();
+//   return Napi::Boolean::New(info.Env(), true);
+// }
 
 Napi::Value Window::GetByClassName(const Napi::CallbackInfo& info) {
   if (info.Length() != 1 || !info[0].IsString()) {
@@ -100,6 +119,8 @@ Napi::Object Window::Init(Napi::Env env, Napi::Object exports) {
     {
       StaticMethod<&Window::GetForeground>("getForeground"),
       StaticMethod<&Window::SendInputKey>("sendInputKey"),
+      StaticMethod<&Window::Copy>("Copy"),
+      // StaticMethod<&Window::EmptyClipboard>("EmptyClipboard"),
       StaticMethod<&Window::GetByTitle>("getByTitle"),
       StaticMethod<&Window::GetByClassName>("getByClassName"),
       StaticMethod<&Window::GetByPid>("getByPid"),
