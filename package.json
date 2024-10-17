@@ -1,6 +1,6 @@
 {
   "name": "vnz-win-control",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "description": "Windows manipulation made easy for node.js",
   "author": "VnzLogin <support@vnzlogin.com>",
   "license": "MIT",
@@ -32,7 +32,8 @@
     "url": "https://github.com/vnzlogin/vnz-win-control.git"
   },
   "os": [
-    "win32"
+    "win32",
+    "darwin"
   ],
   "binary": {
     "module_name": "wincontrol",
